@@ -54,7 +54,8 @@ class WordGuesserGame
     else
       @pos_1 = word.index(alpha)
       @pos_2 = word_with_guesses.index(alpha)
-
+      
+      #对且不重复
       if pos_1 != nil && pos_2 == nil
         @guesses = alpha
         @correct_guesses.concat(alpha)
@@ -66,21 +67,23 @@ class WordGuesserGame
         if word_with_guesses.index('-') == nil
           @check_win_or_lose = :win
         end
-      
+      #对且重复
       elsif pos_1 != nil && pos_2 != nil
         @guesses = alpha
         return false
-      
+      #错
       else
-        @wrong_guesses = alpha
         @pos_3 = wrong_guesses_list.index(alpha)
         @wrong_times = @wrong_times + 1
         if wrong_times >= 7
           @check_win_or_lose = :lose
         end
+        #错且不重复
         if pos_3 == nil
+          @wrong_guesses = alpha
           @wrong_guesses_list.concat(alpha)
           return true
+        #错且重复
         else 
           return false
         end
