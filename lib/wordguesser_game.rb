@@ -69,7 +69,6 @@ class WordGuesserGame
         end
       #对且重复
       elsif pos_1 != nil && pos_2 != nil
-        @guesses = alpha
         return false
       #错
       else
