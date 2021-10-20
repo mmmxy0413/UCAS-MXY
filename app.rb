@@ -48,18 +48,39 @@ class WordGuesserApp < Sinatra::Base
   # won, lost, or neither, and take the appropriate action.
   # Notice that the show.erb template expects to use the instance variables
   # wrong_guesses and word_with_guesses from @game.
+  # get '/show' do
+  #   ### YOUR CODE HERE ###
+  #   erb :show # You may change/remove this line
+  # end
+  
+  # get '/win' do
+  #   ### YOUR CODE HERE ###
+  #   erb :win # You may change/remove this line
+  # end
+  
+  # get '/lose' do
+  #   ### YOUR CODE HERE ###
+  #   erb :lose # You may change/remove this line
+  # end
   get '/show' do
-    ### YOUR CODE HERE ###
+    status = @game.check_win_or_lose
+    redirect '/win' if status == :win
+    redirect '/lose' if status == :lose
     erb :show # You may change/remove this line
   end
   
   get '/win' do
-    ### YOUR CODE HERE ###
+    status = @game.check_win_or_lose
+    redirect '/show' if status == :play
+    redirect '/lose' if status == :lose
     erb :win # You may change/remove this line
   end
   
   get '/lose' do
     ### YOUR CODE HERE ###
+    status = @game.check_win_or_lose
+    redirect '/show' if status == :play
+    redirect '/win' if status == :win
     erb :lose # You may change/remove this line
   end
   
