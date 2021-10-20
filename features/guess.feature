@@ -24,7 +24,7 @@ Scenario: guess incorrect letter
 
 Scenario: multiple correct and incorrect guesses
 
-  Given I start a new game with word "foobar"
-  When I make the following guesses: a,z,x,o
-  Then the word should read "-oo-a-"
-  And the wrong guesses should include: z,x
+  Given I start a new game with word "banana"
+  When I make the following guesses: b,d,e,f,n
+  Then the word should read "b-n-n-"
+  And the wrong guesses should include: d,e,f
