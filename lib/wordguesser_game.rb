@@ -43,10 +43,13 @@ class WordGuesserGame
   def guess(alpha)
     #context 'invalid'
     if alpha == ''
+      puts ArgumentError
       raise ArgumentError
     elsif !isAlpha(alpha)
+      puts ArgumentError
       raise ArgumentError
     elsif alpha == nil
+      puts ArgumentError
       raise ArgumentError
     elsif alpha >= 'A' && alpha <= 'Z'
       puts 'is case insensitive'
