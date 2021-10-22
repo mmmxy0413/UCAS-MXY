@@ -45,12 +45,15 @@ class WordGuesserGame
     if alpha == ''
       puts ArgumentError
       raise ArgumentError
+      return ArgumentError
     elsif !isAlpha(alpha)
       puts ArgumentError
       raise ArgumentError
+      return ArgumentError
     elsif alpha == nil
       puts ArgumentError
       raise ArgumentError
+      return ArgumentError
     elsif alpha >= 'A' && alpha <= 'Z'
       puts 'is case insensitive'
       return false
