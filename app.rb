@@ -67,23 +67,23 @@ class WordGuesserApp < Sinatra::Base
   
   get '/win' do
     ### YOUR CODE HERE ###
-    # if check_win_or_lose == :play
-    #   redirect '/show'
-    # end
-    # if check_win_or_lose == :lose
-    #   redirect '/lose'
-    # end
+    if @game.check_win_or_lose == :play
+      redirect '/show'
+    end
+    if @game.check_win_or_lose == :lose
+      redirect '/lose'
+    end
     erb :win # You may change/remove this line
   end
   
   get '/lose' do
     ### YOUR CODE HERE ###
-    # if check_win_or_lose == :play
-    #   redirect '/show'
-    # end
-    # if check_win_or_lose == :win
-    #   redirect '/win'
-    # end
+    if @game.check_win_or_lose == :play
+      redirect '/show'
+    end
+    if @game.check_win_or_lose == :win
+      redirect '/win'
+    end
     erb :lose # You may change/remove this line
   end
   
