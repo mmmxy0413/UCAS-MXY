@@ -57,8 +57,6 @@ class WordGuesserGame
     else
       @pos_1 = word.index(alpha)
       @pos_2 = word_with_guesses.index(alpha)
-      
-      
       if pos_1 != nil
         #对且不重复
         if pos_2 == nil
