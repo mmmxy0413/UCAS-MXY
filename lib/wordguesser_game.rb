@@ -57,23 +57,23 @@ class WordGuesserGame
     else
       @pos_1 = word.index(alpha)
       @pos_2 = word_with_guesses.index(alpha)
-      if pos_1 != nil
-        #对且不重复
-        if pos_2 == nil
-          @guesses = alpha
-          @correct_guesses.concat(alpha)
-          for i in 0..word.length-1
-            if word[i] == alpha
-              @word_with_guesses[i] = alpha
-            end
+      
+      #对且不重复
+      if pos_1 != nil && pos_2 == nil
+        @guesses = alpha
+        @correct_guesses.concat(alpha)
+        for i in 0..word.length-1
+          if word[i] == alpha
+            @word_with_guesses[i] = alpha
           end
-          if word_with_guesses.index('-') == nil
-            @check_win_or_lose = :win
-          end
-        #对且重复
-        else
-          @guesses = alpha
-          return false
+        end
+        if word_with_guesses.index('-') == nil
+          @check_win_or_lose = :win
+        end
+      #对且重复
+      elsif pos_1 != nil && pos_2 != nil
+        @guesses = alpha
+        return false
       #错
       else
         @wrong_guesses = alpha
