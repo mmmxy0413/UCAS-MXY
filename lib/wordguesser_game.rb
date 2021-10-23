@@ -45,15 +45,12 @@ class WordGuesserGame
     if alpha == ''
       puts ArgumentError
       raise ArgumentError
-      return ArgumentError
     elsif !isAlpha(alpha)
       puts ArgumentError
       raise ArgumentError
-      return ArgumentError
     elsif alpha == nil
       puts ArgumentError
       raise ArgumentError
-      return ArgumentError
     elsif alpha >= 'A' && alpha <= 'Z'
       puts 'is case insensitive'
       return false
@@ -82,12 +79,12 @@ class WordGuesserGame
         @wrong_guesses = alpha
         @pos_3 = wrong_guesses_list.index(alpha) #标识alpha有没有在错误列表里
         @wrong_times = @wrong_times + 1
+        if wrong_times >= 7
+          @check_win_or_lose = :lose
+        end
         #错且不重复
         if pos_3 == nil
           @wrong_guesses_list.concat(alpha)
-          if wrong_times >= 7
-            @check_win_or_lose = :lose
-          end
           return true
         #错且重复
         else 
