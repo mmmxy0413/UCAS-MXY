@@ -4,77 +4,94 @@ class WordGuesserGame
   # to make the tests in spec/wordguesser_game_spec.rb pass.
 
   # Get a word from remote "random word" service
-
-
   attr_accessor :word
   attr_accessor :guesses
-  attr_accessor :wrong_guesses
-  attr_accessor :correct_list
-  attr_accessor :wrong_list
   attr_accessor :word_with_guesses
-  attr_accessor :wrong_count 
+  attr_accessor :wrong_guesses
+  attr_accessor :wrong_guesses_list
+  attr_accessor :correct_guesses
+  attr_accessor :wrong_times
   attr_accessor :check_win_or_lose
+  attr_accessor :pos_1
+  attr_accessor :pos_2
+  attr_accessor :pos_3
 
   def initialize(word)
     @word = word
-    @guesses = ""
-    @wrong_guesses = ""
-    @correct_list = ""
-    @wrong_list = ""
-    @word_with_guesses = ""
-    @wrong_count = 0
+    @guesses = "" #当前猜的字母正确
+    @wrong_guesses = "" #当前猜的字母错误
+    @wrong_guesses_list = "" #猜错的字母 zxf
+    @correct_guesses = "" #猜对的字母 ba
+    @word_with_guesses = "" #当前猜的情况 ba-a-a
+    @wrong_times = 0
     @check_win_or_lose = :play
     for i in 1..word.length
 	    word_with_guesses.concat('-')
-    end
+    end                                
   end
 
-  def is_alpha(c)
-	  if (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-		  return true
-	  else 
-		  return false
-	  end
-  end 
-
-  def guess(alpha)
-    if alpha == nil
-	raise ArgumentError
-    elsif !is_alpha(alpha)
-	raise ArgumentError
-    elsif alpha >= 'A' && alpha <= 'Z'
-	return false
-    else
-    	if word.index(alpha) != nil
-		if correct_list.index(alpha) == nil
-			@guesses = alpha
-			@correct_list.concat(alpha)
-			for i in 0..word.length-1
-				if word[i] == alpha
-					@word_with_guesses[i] = alpha
-				end
-			end
-			if word_with_guesses.index('-') == nil
-				@check_win_or_lose = :win
-			end
-		else
-			return false
-		end
-    	else
-		if wrong_list.index(alpha) == nil
-			@wrong_guesses = alpha
-			@wrong_list.concat(alpha)
-			@wrong_count = @wrong_count + 1
-			if wrong_count >= 7
-				@check_win_or_lose = :lose
-			end
-		else
-			return false
-		end
-    	end
+  def isAlpha(a)
+    if a != nil
+      if (a >= 'a' && a <= 'z') || (a >= 'A' && a<= 'Z')
+        return true
+      else 
+        return false
+      end
     end
-  end 
-
+  end
+  
+  def guess(alpha)
+    #context 'invalid'
+    if alpha == ''
+      puts ArgumentError
+      raise ArgumentError
+    elsif !isAlpha(alpha)
+      puts ArgumentError
+      raise ArgumentError
+    elsif alpha == nil
+      puts ArgumentError
+      raise ArgumentError
+    elsif alpha >= 'A' && alpha <= 'Z'
+      puts 'is case insensitive'
+      return false
+    else
+      @pos_1 = word.index(alpha)
+      @pos_2 = word_with_guesses.index(alpha)
+      
+      #对且不重复
+      if pos_1 != nil && pos_2 == nil
+        @guesses = alpha
+        @correct_guesses.concat(alpha)
+        for i in 0..word.length-1
+          if word[i] == alpha
+            @word_with_guesses[i] = alpha
+          end
+        end
+        if word_with_guesses.index('-') == nil
+          @check_win_or_lose = :win
+        end
+      #对且重复
+      elsif pos_1 != nil && pos_2 != nil
+        @guesses = alpha
+        return false
+      #错
+      else
+        #错且不重复
+        if wrong_guesses_list.index(alpha) == nil#标识alpha有没有在错误列表里
+          @wrong_guesses_list.concat(alpha)
+          @wrong_guesses = alpha
+          @wrong_times = wrong_times + 1
+          if wrong_times >= 7
+            @check_win_or_lose = :lose
+          end
+          return true
+        #错且重复
+        else 
+          return false
+        end
+      end
+    end
+  end
   # You can test it by installing irb via $ gem install irb
   # and then running $ irb -I. -r app.rb
   # And then in the irb: irb(main):001:0> WordGuesserGame.get_random_word
