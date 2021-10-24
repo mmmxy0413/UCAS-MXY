@@ -79,6 +79,7 @@ class WordGuesserGame
         @wrong_guesses = alpha
         @pos_3 = wrong_guesses_list.index(alpha) #标识alpha有没有在错误列表里
         @wrong_times = wrong_times + 1
+        puts wrong_times
         if wrong_times >= 7
           @check_win_or_lose = :lose
         end
